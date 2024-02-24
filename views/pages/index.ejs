@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Aircraft App</title>
+
+    <%- include('../components/head.ejs') %>
+
+    <style>
+        * {
+            font-family: "Poppins";
+        }
+
+        body {
+            background-image: linear-gradient(to bottom left, white, rgb(0, 200, 255));
+        }
+    </style>
+</head>
+<body>
+    <%- include('../components/navbar.ejs') %>
+
+    <div class="container">
+        <div class="display-0 text-dark" id="slogan-text"><br />Moive Time <br /></div>
+        </div>
+		<div class="row mt-5">
+            <% items.forEach(function(item, index) { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 rounded">
+                        <div id="carouselExampleControls<%= index %>" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <% item.pictures.forEach(function(picture, picIndex) { %>
+                                    <div class="carousel-item <%= picIndex === 0 ? 'active' : '' %>">
+                                        <img src="<%= picture %>" class="d-block w-100 rounded" alt="...">
+                                    </div>
+                                <% }); %>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls<%= index %>" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls<%= index %>" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="card-body" id="aircraft-<%= index %>">
+                            <h5 class="card-title"><%= item.names.en %></h5>
+							<br>
+                            <p class="card-text"><%= item.descriptions.en %></p>
+                        </div>
+                    </div>
+                </div>
+                <% if ((index + 1) % 3 === 0) { %>
+                    </div><div class="row">
+                <% } %>
+            <% }); %>
+        </div>
+    </div>
+        
+  
+
+    <%- include('../components/footer.ejs') %>
+
+    <% if (error) { %>
+        <script>
+            Swal.fire({
+                title: "An error occured!",
+                text: "City was not found.",
+                icon: "error"
+            });
+        </script>
+    <% } %>
+
+	<script>
+		var items = <%- JSON.stringify(items) %>;
+
+		document.addEventListener('DOMContentLoaded', function() {
+			var languageSelect = document.getElementById('language');
+	
+			if (languageSelect) {
+				languageSelect.addEventListener('change', function() {
+					var selectedLanguage = this.value;
+	
+					items.forEach(function(item, index) {
+						var aircraft = document.getElementById('aircraft-' + index);
+						if (aircraft) {
+							aircraft.querySelector('.card-title').textContent = item.names[selectedLanguage];
+							aircraft.querySelector('.card-text').textContent = item.descriptions[selectedLanguage];
+						}
+					});
+
+					switch(selectedLanguage) {
+						case 'ru': {
+							document.getElementById('searchtheaircraft').innerHTML = 'Поиск самолетов'; 
+							document.getElementById('slogan-text').innerHTML = 'Лучшее <br />самолетов <br />в 2024 году'; break;
+						}
+						case 'en': {
+							document.getElementById('searchtheaircraft').innerHTML = 'Search the Aircrafts'; 
+							document.getElementById('slogan-text').innerHTML = 'The best<br />Aircraft App<br />in 2024'; break;
+						}
+						case 'kz': {
+							document.getElementById('searchtheaircraft').innerHTML = 'Ұшақтарды іздеу';
+							document.getElementById('slogan-text').innerHTML = '2024 жылғы<br />ең жақсы<br />ұшақ қолданбасы'; break;
+						}
+					}
+				});
+			}
+		});
+	</script>
+	
+</body>
+</html>
