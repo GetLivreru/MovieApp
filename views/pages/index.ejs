@@ -20,8 +20,8 @@
                 <option value="kz">KZ</option>
             </select>
             <% if (!user) { %>
-                <a href="/login" class="bg-blue-500 text-white px-4 py-2 rounded">Login</a>
-                <a href="/signup" class="bg-blue-500 text-white px-4 py-2 rounded">Sign up</a>
+                <a class="text-white" href="/login">Login</a>
+                <a class="text-white" href="/signup">Sign Up</a>
             <% } else { %>
                 <% if (user.is_admin) { %>
                     <a href="/admin/items" class="bg-blue-500 text-white px-4 py-2 rounded">Items</a>
@@ -47,14 +47,6 @@
                                     </div>
                                 <% }); %>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls<%= index %>" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls<%= index %>" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
                         </div>
                         <div class="p-4" id="aircraft-<%= index %>">
                             <h5 class="text-xl font-bold"><%= item.names.en %></h5>
@@ -70,21 +62,10 @@
     </div>
         
     <section class="mt-5">
-        <footer class="text-center text-white bg-blue-500">
-            <div class="p-4">
-                <section class="">
-                    <p class="flex justify-center items-center">
-                        <% if (!user) {%>
-                        <span class="mr-3">Register for free</span>
-                        <a href="/signup" class="bg-white text-blue-500 px-4 py-2 rounded">Sign up!</a>
-                    </p>
-                    <% } %>
-                </section>
-            </div>
-        
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.4);">
+        <footer class="text-center text-white bg-primary">
+            <div class="text-center py-3 bg-opacity-40 bg-purple-500">
                 © 2024 Copyright:
-                <a class="text-white" href="/">Adilet Kaiyrbekov</a>
+                <a class="text-white" href="/signup">Adilet Kaiyrbekov</a>
             </div>
         </footer>
     </section>
@@ -165,4 +146,3 @@
     </script>
 </body>
 </html>
-ф
