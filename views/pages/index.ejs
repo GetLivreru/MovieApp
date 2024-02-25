@@ -24,11 +24,12 @@
                 <a class="text-white" href="/signup">Sign Up</a>
             <% } else { %>
                 <% if (user.is_admin) { %>
-                    <a href="/admin/items" class="bg-blue-500 text-white px-4 py-2 rounded">Items</a>
-                    <a href="/admin" class="bg-blue-500 text-white px-4 py-2 rounded">Users</a>
+                    <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin">Users</a>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
                 <% } %>
-                <a href="" class="bg-blue-500 text-white px-4 py-2 rounded"><%= user.username %></a>
-                <a href="/logout" class="bg-blue-500 text-white px-4 py-2 rounded">Logout</a>
+                <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>
+                <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/logout">Logout</a>
             <% } %>
         </div>
     </nav>
