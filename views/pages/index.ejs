@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Aircraft App</title>
+    <title>Moive App</title>
 
     <%- include('../components/head.ejs') %>
 
@@ -73,41 +73,38 @@
     <% } %>
 
 	<script>
-		var items = <%- JSON.stringify(items) %>;
-
-		document.addEventListener('DOMContentLoaded', function() {
-			var languageSelect = document.getElementById('language');
-	
-			if (languageSelect) {
-				languageSelect.addEventListener('change', function() {
-					var selectedLanguage = this.value;
-	
-					items.forEach(function(item, index) {
-						var aircraft = document.getElementById('aircraft-' + index);
-						if (aircraft) {
-							aircraft.querySelector('.card-title').textContent = item.names[selectedLanguage];
-							aircraft.querySelector('.card-text').textContent = item.descriptions[selectedLanguage];
-						}
-					});
-
-					switch(selectedLanguage) {
-						case 'ru': {
-							document.getElementById('searchtheaircraft').innerHTML = 'Поиск самолетов'; 
-							document.getElementById('slogan-text').innerHTML = 'Лучшее <br />самолетов <br />в 2024 году'; break;
-						}
-						case 'en': {
-							document.getElementById('searchtheaircraft').innerHTML = 'Search the Aircrafts'; 
-							document.getElementById('slogan-text').innerHTML = 'The best<br />Aircraft App<br />in 2024'; break;
-						}
-						case 'kz': {
-							document.getElementById('searchtheaircraft').innerHTML = 'Ұшақтарды іздеу';
-							document.getElementById('slogan-text').innerHTML = '2024 жылғы<br />ең жақсы<br />ұшақ қолданбасы'; break;
-						}
-					}
-				});
-			}
-		});
-	</script>
+        var items = <%- JSON.stringify(items) %>;
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var languageSelect = document.getElementById('language');
+    
+            if (languageSelect) {
+                languageSelect.addEventListener('change', function() {
+                    var selectedLanguage = this.value;
+    
+                    items.forEach(function(item, index) {
+                        var aircraft = document.getElementById('aircraft-' + index);
+                        if (aircraft) {
+                            aircraft.querySelector('.card-title').textContent = item.names[selectedLanguage];
+                            aircraft.querySelector('.card-text').textContent = item.descriptions[selectedLanguage];
+                        }
+                    });
+    
+                    switch(selectedLanguage) {
+                        case 'ru': {
+                            document.getElementById('slogan-text').innerHTML = 'Время <br />Фильма <br />'; break;
+                        }
+                        case 'en': {
+                            document.getElementById('slogan-text').innerHTML = 'Moive<br />Time<br />'; break;
+                        }
+                        case 'kz': {
+                            document.getElementById('slogan-text').innerHTML = 'Фильм<br />уакыты<br />'; break;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 	
 </body>
 </html>
