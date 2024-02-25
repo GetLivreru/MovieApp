@@ -163,14 +163,7 @@ app.post("/admin/addUser", ensureAdmin, async (req, res) => {
     res.status(202).redirect("/admin");
 });
 
-app.get("/admin/user/:username", ensureAdmin, async (req, res) => {
-    const username = req.params.username;
-    const s_user = await UserModel.findOne({ username: username }).exec();
-    const history = await LogsModel.find({ user: s_user._id }).sort({ _id: -1 }).exec();
-    const user = await getUserInstance(req);
-
-    res.render('pages/admin_user.ejs', { activePage: "admin", user: user, s_user: s_user, logs: history, error: history ? null : "No logs found"});
-});
+ 
 
 app.post('/admin/updateUser', ensureAdmin, async (req, res) => {
     const { userId, username, email, password } = req.body;
