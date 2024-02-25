@@ -4,150 +4,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - The Aircraft App</title>
-    <%- include('../components/head.ejs') %>
+    <!-- Favicon -->
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             font-family: "Poppins";
         }
-        
     </style>
 </head>
-<body>
-    <%- include('../components/navbar.ejs') %>
+<body class="bg-gray-300">
+    <nav class="flex items-center justify-between p-6">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center py-4">
+                 
+                <ul class="hidden lg:flex space-x-8">
+                    <li class="nav-item">
+                        <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= activePage === 'news' ? 'active text-primary fw-semibold' : '' %>" href="/news">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/tmdb">TMDB</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/tmdb">TMDB</a>
+                    </li>
+                </ul>
+                <div class="flex items-center space-x-4">
+                    <% if (!user) { %>
+                        <a href="/login" class="btn btn-primary">Login</a>
+                        <a href="/signup" class="btn btn-secondary">Sign up</a>
+                    <% } else { %>
+                        <% if (user.is_admin) { %>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin">Users</a>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
+                        <% } %>
+                        <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>
+                        <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/logout">TMDB</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <div class="container">
-        <div class="fs-1 fw-semibold my-3">Admin Panel | Manage Items</div>
-
+    <div class="container mx-auto mt-8">
+        <div class="text-3xl font-semibold my-8">Admin Panel | Manage Items</div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
             Add New Item
         </button>
     </div>
-    
-    
-    <!-- Add Item Modal Start -->
-    <div class="modal fade" id="addItemModal" role="dialog" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+ <!-- Add Item Modal Start -->
+ <div class="modal fade" id="addItemModal" role="dialog" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/admin/addItem" method="POST">
+        <div class="bg-gray-300 modal-body">
+            <!-- Names -->
+            <div class="form-group">
+            <label for="nameEn">Name (EN)</label>
+            <input type="text" class="form-control" id="nameEn" name="names[en]" required>
+            </div>
+            <div class="form-group">
+            <label for="nameRu">Name (RU)</label>
+            <input type="text" class="form-control" id="nameRu" name="names[ru]" required>
+            </div>
+            <div class="form-group">
+            <label for="nameKz">Name (KZ)</label>
+            <input type="text" class="form-control" id="nameKz" name="names[kz]" required>
+            </div>
+            <!-- Descriptions -->
+            <div class="form-group">
+                <label for="descriptionEn">Description (EN)</label>
+                <textarea class="form-control" id="descriptionEn" name="descriptions[en]" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="descriptionRu">Description (RU)</label>
+                <textarea class="form-control" id="descriptionRu" name="descriptions[ru]" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="descriptionKz">Description (KZ)</label>
+                <textarea class="form-control" id="descriptionKz" name="descriptions[kz]" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="picture1">Picture URL</label>
+                <input type="text" class="form-control" id="picture1" name="pictures[]" required>
+            </div>
+            <div class="form-group">
+                <label for="creationDate">Creation Date</label>
+                <input type="date" class="form-control" id="creationDate" name="creationDate" required>
+            </div>
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                <input type="text" class="form-control" id="genre" name="genre" required>
+            </div>
+            <div class="form-group">
+                <label for="director">Director</label>
+                <input type="text" class="form-control" id="director" name="director" required>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget</label>
+                <input type="number" class="form-control" id="budget" name="budget" required>
+            </div>
+             
+        </div>
+        <div class="bg-gray-300 modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Item</button>
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+<!-- Add Item Modal End -->
+
+
+<!-- Edit Item Modal Start -->
+<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+                <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/admin/addItem" method="POST">
-            <div class="modal-body">
-                <!-- Names -->
-                <div class="form-group">
-                <label for="nameEn">Name (EN)</label>
-                <input type="text" class="form-control" id="nameEn" name="names[en]" required>
-                </div>
-                <div class="form-group">
-                <label for="nameRu">Name (RU)</label>
-                <input type="text" class="form-control" id="nameRu" name="names[ru]" required>
-                </div>
-                <div class="form-group">
-                <label for="nameKz">Name (KZ)</label>
-                <input type="text" class="form-control" id="nameKz" name="names[kz]" required>
-                </div>
-                <!-- Descriptions -->
-                <div class="form-group">
-                    <label for="descriptionEn">Description (EN)</label>
-                    <textarea class="form-control" id="descriptionEn" name="descriptions[en]" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="descriptionRu">Description (RU)</label>
-                    <textarea class="form-control" id="descriptionRu" name="descriptions[ru]" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="descriptionKz">Description (KZ)</label>
-                    <textarea class="form-control" id="descriptionKz" name="descriptions[kz]" required></textarea>
-                </div>
-                <!-- Links -->
-                <div class="form-group">
-                    <label for="picture1">Picture URL 1</label>
-                    <input type="text" class="form-control" id="picture1" name="pictures[]" required>
-                </div>
-                <div class="form-group">
-                    <label for="picture2">Picture URL 2</label>
-                    <input type="text" class="form-control" id="picture2" name="pictures[]" required>
-                </div>
-                <div class="form-group">
-                    <label for="picture3">Picture URL 3</label>
-                    <input type="text" class="form-control" id="picture3" name="pictures[]" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Add Item</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    <!-- Add Item Modal End -->
-  
-  
-    <!-- Edit Item Modal Start -->
-    <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="editItemForm" action="/admin/updateItem" method="POST">
-                    <div class="modal-body">
-                        <!-- Hidden ID -->
-                        <input hidden id="editItemId" name="itemId">
-                        <!-- Edit Names -->
-                        <div class="form-group">
-                            <label for="editNameEn">Name (EN)</label>
-                            <input type="text" class="form-control" id="editNameEn" name="names[en]" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editNameRu">Name (RU)</label>
-                            <input type="text" class="form-control" id="editNameRu" name="names[ru]" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editNameKz">Name (KZ)</label>
-                            <input type="text" class="form-control" id="editNameKz" name="names[kz]" required>
-                        </div>
-                        <!-- Edit Descriptions -->
-                        <div class="form-group">
-                            <label for="editDescriptionEn">Description (EN)</label>
-                            <textarea class="form-control" id="editDescriptionEn" name="descriptions[en]" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="editDescriptionRu">Description (RU)</label>
-                            <textarea class="form-control" id="editDescriptionRu" name="descriptions[ru]" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="editDescriptionKz">Description (KZ)</label>
-                            <textarea class="form-control" id="editDescriptionKz" name="descriptions[kz]" required></textarea>
-                        </div>
-                        <!-- Edit Links -->
-                        <div class="form-group">
-                            <label for="editPicture1">Picture URL 1</label>
-                            <input type="text" class="form-control" id="editPicture1" name="pictures[]" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editPicture2">Picture URL 2</label>
-                            <input type="text" class="form-control" id="editPicture2" name="pictures[]" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editPicture3">Picture URL 3</label>
-                            <input type="text" class="form-control" id="editPicture3" name="pictures[]" required>
-                        </div>
+            <form id="editItemForm" action="/admin/updateItem" method="POST">
+                <div class="modal-body">
+                    <!-- Hidden ID -->
+                    <input hidden id="editItemId" name="itemId">
+                    <!-- Edit Names -->
+                    <div class="form-group">
+                        <label for="editNameEn">Name (EN)</label>
+                        <input type="text" class="form-control" id="editNameEn" name="names[en]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNameRu">Name (RU)</label>
+                        <input type="text" class="form-control" id="editNameRu" name="names[ru]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNameKz">Name (KZ)</label>
+                        <input type="text" class="form-control" id="editNameKz" name="names[kz]" required>
                     </div>
                     
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <div class="form-group">
+                        <label for="editDescriptionEn">Description (EN)</label>
+                        <textarea class="form-control" id="editDescriptionEn" name="descriptions[en]" required></textarea>
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="editDescriptionRu">Description (RU)</label>
+                        <textarea class="form-control" id="editDescriptionRu" name="descriptions[ru]" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDescriptionKz">Description (KZ)</label>
+                        <textarea class="form-control" id="editDescriptionKz" name="descriptions[kz]" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editPicture1">Picture URL 1</label>
+                        <input type="text" class="form-control" id="editPicture1" name="pictures[]" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editCreationDate">Creation Date</label>
+                        <input type="date" class="form-control" id="editCreationDate" name="creationDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGenre">Genre</label>
+                        <input type="text" class="form-control" id="editGenre" name="genre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDirector">Director</label>
+                        <input type="text" class="form-control" id="editDirector" name="director" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBudget">Budget</label>
+                        <input type="number" class="form-control" id="editBudget" name="budget" required>
+                    </div>
+                     
+                     
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
-    <!-- Edit Item Modal End -->
-
+</div>
+<!-- Edit Item Modal End -->
 
     <div class="container mt-5">
         <h2>Items List</h2>
@@ -163,6 +217,10 @@
                         <th scope="col">Description (KZ)</th>
                         <th scope="col">Image URLs</th>
                         <th scope="col">Actions</th>
+                        <th scope="col">Creation Date</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Director</th>
+                        <th scope="col">Budget</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -174,15 +232,21 @@
                             <td><%= item.descriptions.en %></td>
                             <td><%= item.descriptions.ru %></td>
                             <td><%= item.descriptions.kz %></td>
+                            <td><%= item.creationDate %></td>
+                            <td><%= item.genre %></td>
+                            <td><%= item.director %></td>
+                            <td><%= item.budget %></td>
                             <td>
                                 <% item.pictures.forEach(function(picture, index) { %>
                                     <div><a href="<%= picture %>" target="_blank">Link <%= index + 1 %></a></div>
                                 <% }); %>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm" onclick="editItem('<%= item._id %>')">Edit</button>
-                                <form action="/admin/item/<%= item._id %>/delete" method="GET">
-                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                <button class="bg-gradient-to-r from-yellow-500 to-rose-500 hover:from-green-900 hover:to-blue-900 py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" onclick="editItem('<%= item._id %>')">Edit</button>
+                                <form action="/admin/item/<%= item._id %>/delete" method="GET" class="d-inline-block">
+                                    <button class="bg-gradient-to-r from-green-500 to-pink-500 hover:from-red-900 hover:to-red-900 py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                        Delete
+                                      </button>
                                 </form>
                             </td>
                         </tr>
@@ -191,11 +255,15 @@
             </table>
         </div>
     </div>
-    
 
-
-
-    <%- include('../components/footer.ejs') %>
+    <footer class="text-center text-white bg-primary">
+        <div class="text-center py-3 bg-opacity-40 bg-purple-500">
+            © 2024 Copyright:
+            <a class="text-white" href="/">Adilet Kaiyrbekov</a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.tailwindcss.com/2.2.19@latest"></script>
     <script>
         var editModal = document.getElementById('editItemModal');
         editModal.addEventListener('hidden.bs.modal', function (event) {
@@ -216,7 +284,11 @@
                     document.getElementById('editDescriptionEn').value = data.descriptions.en;
                     document.getElementById('editDescriptionKz').value = data.descriptions.kz;
                     document.getElementById('editDescriptionRu').value = data.descriptions.ru;
-                    
+                    document.getElementById('editCreationDate').value = data.creationDate;
+                    document.getElementById('editGenre').value = data.genre;
+                    document.getElementById('editDirector').value = data.director;
+                    document.getElementById('editBudget').value = data.budget;
+
                     for (let i = 0; i < data.pictures.length; i++) {
                         document.getElementById(`editPicture${i + 1}`).value = data.pictures[i];
                     }

@@ -196,7 +196,7 @@ app.get('/admin/item/:itemId', ensureAdmin, async (req, res) => {
 });
 
 app.post("/admin/addItem", ensureAdmin, async (req, res) => {
-    const { names, descriptions, pictures } = req.body;
+    const { names, descriptions, pictures, creationDate, genre, director, budget } = req.body;
 
     const newItem = new ItemModel({
         names: {
@@ -209,7 +209,11 @@ app.post("/admin/addItem", ensureAdmin, async (req, res) => {
             ru: descriptions.ru,
             kz: descriptions.kz
         },
-        pictures: pictures
+        pictures: pictures,
+        creationDate: creationDate,
+        genre: genre,
+        director: director,
+        budget: budget
     });
 
     await newItem.save();
@@ -219,7 +223,7 @@ app.post("/admin/addItem", ensureAdmin, async (req, res) => {
 
 app.post("/admin/updateItem", ensureAdmin, async (req, res) => {
     console.log(req.body);
-    const { itemId, names, descriptions, pictures } = req.body;
+    const { itemId, names, descriptions, pictures, creationDate, genre, director, budget } = req.body;
     const updated_at = new Date();
     
     await ItemModel.findByIdAndUpdate(itemId, {
@@ -234,6 +238,10 @@ app.post("/admin/updateItem", ensureAdmin, async (req, res) => {
             kz: descriptions.kz
         },
         pictures: pictures,
+        creationDate: creationDate,
+        genre: genre,
+        director: director,
+        budget: budget,
         updated_at: updated_at
     }).exec();
 
