@@ -8,7 +8,7 @@ const port = 3000;
 const axios = require('axios');
 const { UserModel, LogsModel, ItemModel } = require('./db');
 const { getMovieNews, getActors } = require('./api');
-
+const { QuizQuestionModel } = require('./db.js'); // Путь к файлу db.js может отличаться
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(session({ secret: 'yelnurabdrakhmanov-se2203', resave: false, saveUninitialized: true, cookie: { secure: !true, maxAge: 3600000 }}));
@@ -37,6 +37,17 @@ async function getRandomTMDBCharacters() {
     return randomCharacters;
 }
  
+app.get('/results/:score', (req, res) => {
+    const score = req.params.score;
+    res.render('pages/results', { score: score });
+});
+
+
+app.get('/quiz', async (req, res) => {
+    const questions = await QuizQuestionModel.find({});
+    res.render('pages/quiz', { data: questions }); // Используйте 'pages/quiz', а не 'quiz.ejs'
+});
+
 // Index page
 app.get('/', async (req, res) => {
     try {
@@ -67,50 +78,7 @@ app.get('/tmdb', async (req, res) => {
     }
 });
 // History page
-app.get("/history", ensureAuthenticated, async (req, res) => {
-    const user = await getUserInstance(req);
-    if (!user) {
-        return res.status(303).redirect("/search");
-    }
-
-    const logs = await LogsModel.find({ user: user._id }).sort({ _id: -1 }).exec();
-    res.render('pages/history.ejs', { activePage: "history", user: user, logs: logs, error: logs ? null : "No logs found"});
-});
-
-app.get("/history/:objectId", ensureAuthenticated, async (req, res) => {
-    const objectId = req.params.objectId;
-    const log = await LogsModel.findById(objectId).exec();
-    try {
-        if (!log) {
-            return res.status(404).send("Log not found");
-        }
-        
-        res.json(JSON.parse(log.response_data));
-    } catch (error) {
-        res.status(200).json({ data: log.response_data })
-    }
-});
-
-app.get("/history/:objectId/delete", ensureAuthenticated, async (req, res) => {
-    const user = await getUserInstance(req);
-    if (!user) {
-        return res.status(303).redirect("/search");
-    }
-
-    const objectId = req.params.objectId;
-
-    await LogsModel.findByIdAndDelete(objectId).exec();
-    res.status(303).redirect("/history");
-});
-
-app.get("/history/delete/all", ensureAuthenticated, async (req, res) => {
-    const user = await getUserInstance(req);
-
-    await LogsModel.deleteMany({ user: user._id }).exec();
-    res.status(303).redirect("/history");
-});
-
-// Admin page
+ 
 app.get("/admin", ensureAdmin, async (req, res) => {
     const user = await getUserInstance(req);
 
@@ -134,6 +102,23 @@ app.get("/admin/:userid/delete", ensureAdmin, async (req, res) => {
 
     await UserModel.findByIdAndDelete(userId).exec();
     res.status(202).redirect("/admin");
+});
+
+app.post('/submitQuiz', async (req, res) => {
+    const userAnswers = req.body; // Получение ответов пользователя из запроса
+    const questions = await QuizQuestionModel.find({}); // Получение вопросов из базы данных
+
+    let score = 0;
+
+    // Проверка ответов пользователя
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers['q' + i] == questions[i].correctAnswer) {
+            score++;
+        }
+    }
+
+    // Отображение результатов
+    res.redirect('/results/' + score);
 });
 
 app.get("/admin/:userid/makeAdmin", ensureAdmin, async (req, res) => {
