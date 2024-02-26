@@ -38,7 +38,6 @@
                         <a href="/signup" class="btn btn-secondary">Sign up</a>
                     <% } else { %>
                         <% if (user.is_admin) { %>
-                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
                             <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin">Users</a>
                             <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
                         <% } %>
@@ -52,21 +51,19 @@
 
     <div class="container mx-auto mt-8">
         <div class="text-3xl font-semibold my-8">Admin Panel</div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-            Add New Item
+        <button type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-bs-toggle="modal" data-bs-target="#addItemModal">
+            Add
         </button>
     </div>
- <!-- Add Item Modal Start -->
  <div class="modal fade" id="addItemModal" role="dialog" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="addItemModalLabel">Add New Item</h5>
+        <div class="bg-secondary modal-header">
+            <h5 class="modal-title" id="addItemModalLabel">Description about Movies</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="/admin/addItem" method="POST">
-        <div class="bg-gray-300 modal-body">
-            <!-- Names -->
+        <div class="bg-cyan-600 modal-body">
             <div class="form-group">
             <label for="nameEn">Name (EN)</label>
             <input type="text" class="form-control" id="nameEn" name="names[en]" required>
@@ -79,7 +76,6 @@
             <label for="nameKz">Name (KZ)</label>
             <input type="text" class="form-control" id="nameKz" name="names[kz]" required>
             </div>
-            <!-- Descriptions -->
             <div class="form-group">
                 <label for="descriptionEn">Description (EN)</label>
                 <textarea class="form-control" id="descriptionEn" name="descriptions[en]" required></textarea>
@@ -115,8 +111,8 @@
              
         </div>
         <div class="bg-gray-300 modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add Item</button>
+            <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-dismiss="modal">Close</button>
+            <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Item</button>
         </div>
         </form>
     </div>
@@ -129,12 +125,12 @@
 <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="bg-secondary modal-header">
                 <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="editItemForm" action="/admin/updateItem" method="POST">
-                <div class="modal-body">
+                <div class="bg-sky-500 modal-body">
                     <!-- Hidden ID -->
                     <input hidden id="editItemId" name="itemId">
                     <!-- Edit Names -->
@@ -189,18 +185,16 @@
                      
                 </div>
                 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                <div class="bg-gray-600 modal-footer">
+                    <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save Changes</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- Edit Item Modal End -->
-
+ 
     <div class="container mt-5">
-        <h2>Items List</h2>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>

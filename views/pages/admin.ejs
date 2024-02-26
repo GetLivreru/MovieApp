@@ -52,7 +52,8 @@
                       <a href="/signup" class="btn btn-secondary ml-2">Sign up</a>
                     <% } else { %>
                       <% if (user.is_admin) { %>
-                        <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a> 
+                        <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
+                        <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a> 
                       <% } %>
                       <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>
                       <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/logout">Logout</a>
@@ -108,7 +109,7 @@
         <div class="modal-dialog mt-15">
             <div class="modal-content">
                 <div class="bg-secondary modal-header">
-                    <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                    <h5 class="modal-title" id="addUserModalLabel">Description about Users</h5>
                     <button type="button" class="bg-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="/admin/addUser" method="POST">
@@ -132,7 +133,7 @@
                     </div>
                     <div class="bg-dark modal-footer">
                         <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add User</button>
+                        <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add User</button>
                     </div>
                 </form>
             </div>
