@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 const axios = require('axios');
 const { UserModel, LogsModel, ItemModel } = require('./db');
-const { getNewsByCity, getActors } = require('./api');
+const { getMovieNews, getActors } = require('./api');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -248,7 +248,7 @@ app.get("/admin/item/:itemId/delete", ensureAdmin, async (req, res) => {
 
 // News page
 app.get("/news", async (req, res) => {
-    const news = await getNewsByCity();
+    const news = await getMovieNews();
     const user = await getUserInstance(req);
 
     if (!news) {

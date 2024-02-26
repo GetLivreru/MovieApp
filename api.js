@@ -1,11 +1,11 @@
 const axios = require('axios');
 const NEWSAPI_KEY = "714b33fc8b2a4e5e872b460be22d6e6c";
 
-async function getNewsByCity() {
+async function getMovieNews() {
     let response, responseData = null;
 
     try {
-        response = await axios.get(`https://newsapi.org/v2/everything?q=aircraft&apiKey=${NEWSAPI_KEY}&pageSize=10&page=1`);
+        response = await axios.get(`https://newsapi.org/v2/everything?q=movies&apiKey=${NEWSAPI_KEY}&pageSize=10&page=1`);
         responseData = response?.data?.articles;
     } catch {
         return null;
@@ -53,6 +53,6 @@ async function getActors() {
 }
 
 module.exports = {
-    getNewsByCity,
+    getMovieNews,
     getActors // Добавляем экспорт функции getActors
 };
