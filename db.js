@@ -51,7 +51,8 @@ const Item = new Schema({
         created_at: { type: Date, required: true, default: Date.now},
         updated_at: { type: Date, required: true, default: Date.now},
         deleted_at: { type: Date, required: false, default: null},
-    }
+    },
+    quizLink: String
 });
 
 const ItemModel = mongoose.model('Item', Item);

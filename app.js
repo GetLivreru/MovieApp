@@ -174,7 +174,7 @@ app.get('/admin/item/:itemId', ensureAdmin, async (req, res) => {
 });
 
 app.post("/admin/addItem", ensureAdmin, async (req, res) => {
-    const { names, descriptions, pictures, creationDate, genre, director, budget } = req.body;
+    const { names, descriptions, pictures, creationDate, genre, director, budget,quizLink } = req.body;
 
     const newItem = new ItemModel({
         names: {
@@ -191,7 +191,8 @@ app.post("/admin/addItem", ensureAdmin, async (req, res) => {
         creationDate: creationDate,
         genre: genre,
         director: director,
-        budget: budget
+        budget: budget,
+        quizLink: quizLink
     });
 
     await newItem.save();
