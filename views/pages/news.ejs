@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
 
-    <%- include('../components/head.ejs') %>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Sweet Alerts 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
 
     <style>
         * {
@@ -53,34 +68,52 @@
     </style>
 </head>
 
-<body class="bg-light vh-100">
-    <%- include('../components/navbar.ejs') %>
+<body class="bg-gray-900">
+    <nav class="flex items-center justify-between p-6">
+        <div class="flex items-center space-x-4">
+            <a class="text-white" href="/">Home</a>
+            <a class="text-white" href="/news">News</a>
+            <a class="text-white" href="/tmdb">TMDB</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <select id="language" class="rounded">
+                <option value="en">EN</option>
+                <option value="ru">RU</option>
+                <option value="kz">KZ</option>
+            </select>
+            <% if (!user) { %>
+                <a class="text-white" href="/login">Login</a>
+                <a class="text-white" href="/signup">Sign Up</a>
+            <% } else { %>
+                <% if (user.is_admin) { %>
+                    <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin">Users</a>
+                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
+                <% } %>
+                <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>
+                <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/logout">Logout</a>
+            <% } %>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="fs-1 fw-semibold my-3">The Weather News</div>
 
-        <div class="row">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <% data.forEach(function(article) { %>
-                <div class="col-md-6 mb-4">
-                    <div class="news-item">
-                        <% if(article.image) { %>
-                            <img src="<%= article.image %>" alt="Article Image" class="img-fluid">
-                        <% } %>
-                        <div class="news-content">
-                            <h2><%= article.title %></h2>
-                            <p><%= article.description %></p>
-                            <a href="<%= article.url %>" class="btn btn-primary" target="_blank">Read more</a>
-                        </div>
+                <div class="bg-white rounded-lg shadow-lg p-4">
+                    <% if(article.image) { %>
+                        <img src="<%= article.image %>" alt="Article Image" class="w-full rounded-t-lg">
+                    <% } %>
+                    <div class="p-4">
+                        <h2 class="text-xl font-semibold mb-2"><%= article.title %></h2>
+                        <p class="text-gray-700"><%= article.description %></p>
+                        <a href="<%= article.url %>" class="text-blue-500 hover:text-blue-700">Read more</a>
                     </div>
                 </div>
             <% }); %>
         </div>
     </div>
-
-
-
-    <%- include('../components/footer.ejs') %>
-
     <% if (error) { %>
         <script>
             Swal.fire({
