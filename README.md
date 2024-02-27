@@ -23,3 +23,19 @@ Search: Use the search feature to find movies and TV shows by title.
 News Updates: Access the latest news articles related to movies.
 Admin Panel: Admins can manage the application through the admin panel.
 Quizzes: Engage with quizzes related to movies for entertainment and knowledge.
+## Installation and Setup
+
+To get the project up and running on your local machine, follow these steps:
+
+1. **Clone the Repository**
+   ```sh
+   git clone [repository URL]
+   cd [repository name]
+2. **Install Dependencies**
+   ```sh
+   npm install
+   ```
+3. **Start the Server**
+   ```sh
+   node app.js
+   ```
