@@ -12,11 +12,6 @@ Movie App is a web application built to provide users with access to a variety o
 - Frontend Frameworks: Tailwind CSS, Bootstrap
 - APIs: TMDB API, News API
 - Setup Instructions
-## Clone the repository: git clone https://github.com/your-username/movie-app.git
-- Navigate to the project directory: cd movie-app
-- Install dependencies: npm install
-- Configure environment variables for API keys and other settings.
-- Run the application: npm start
 ## Usage
 - Authentication: Users can sign up or log in to access the application.
 - Search: Use the search feature to find movies and TV shows by title.
