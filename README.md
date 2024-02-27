@@ -39,3 +39,6 @@ To get the project up and running on your local machine, follow these steps:
    ```sh
    node app.js
    ```
+## Admin 
+- Login:1111
+- Password:1111
