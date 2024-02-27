@@ -6,12 +6,13 @@ const path = require('path');
 const app = express();
 const port = 3000;
 const axios = require('axios');
-const { UserModel, LogsModel, ItemModel } = require('./db');
+const { UserModel, LogsModel, ItemModel, QuizQuestionModel } = require('./db');
 const { getMovieNews, getActors } = require('./api');
-const { QuizQuestionModel } = require('./db.js'); // Путь к файлу db.js может отличаться
+ 
+ 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(session({ secret: 'yelnurabdrakhmanov-se2203', resave: false, saveUninitialized: true, cookie: { secure: !true, maxAge: 3600000 }}));
+app.use(session({ secret: 'Adilet-se2203', resave: false, saveUninitialized: true, cookie: { secure: !true, maxAge: 3600000 }}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,11 +45,16 @@ app.get('/results/:score', (req, res) => {
 
 
 app.get('/quiz', async (req, res) => {
-    const questions = await QuizQuestionModel.find({});
-    res.render('pages/quiz', { data: questions }); // Используйте 'pages/quiz', а не 'quiz.ejs'
+    const parasiteQuestions = await QuizQuestionModel.find({ movie: 'Parasite' });
+    res.render('pages/quiz', { questions: parasiteQuestions }); 
 });
 
-// Index page
+ 
+app.get('/quizTitanic', async (req, res) => {
+    const titanicQuestions = await QuizQuestionModel.find({ movie: 'Titanic' });
+    res.render('pages/quizTitanic', { questions: titanicQuestions });
+});
+
 app.get('/', async (req, res) => {
     try {
         const user = await getUserInstance(req);
@@ -61,7 +67,7 @@ app.get('/', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-// Маршрут для отображения случайных актеров
+ 
 app.get('/tmdb', async (req, res) => {
     try {
         const actors = await getActors();
@@ -77,7 +83,7 @@ app.get('/tmdb', async (req, res) => {
         res.status(500).send('Internal server error');
     }
 });
-// History page
+ 
  
 app.get("/admin", ensureAdmin, async (req, res) => {
     const user = await getUserInstance(req);
@@ -158,7 +164,6 @@ app.post('/admin/updateUser', ensureAdmin, async (req, res) => {
     res.redirect('/admin');
 });
 
-// Admin Items
 
 app.get("/admin/items", ensureAdmin, async (req, res) => {
     const user = await getUserInstance(req);
@@ -167,7 +172,7 @@ app.get("/admin/items", ensureAdmin, async (req, res) => {
     res.render('pages/admin_items.ejs', { activePage: "admin", user: user, items: items });
 });
 
-// This route is ONLY for fetching it from frontend, not the FORM submissions
+
 app.get('/admin/item/:itemId', ensureAdmin, async (req, res) => {
     const item = await ItemModel.findOne({ _id: req.params.itemId }).exec();
     return item ? res.json(item) : res.status(404).send("Item not found");
@@ -232,7 +237,7 @@ app.get("/admin/item/:itemId/delete", ensureAdmin, async (req, res) => {
     res.status(303).redirect('/admin/items');
 });
 
-// News page
+ 
 app.get("/news", async (req, res) => {
     const news = await getMovieNews();
     const user = await getUserInstance(req);
@@ -245,7 +250,7 @@ app.get("/news", async (req, res) => {
     LogsModel.create({ user: user ? user._id : null, request_type: "news", request_data: null, status_code: "200", timestamp: new Date(), response_data: JSON.stringify(news)});
 });
 
-// Login page
+ 
 app.get("/login", alreadyLoggedIn, async (req, res) => {
     const user = await getUserInstance(req);
     if (user) {
@@ -284,7 +289,7 @@ app.post("/login", alreadyLoggedIn, async (req, res) => {
     LogsModel.create({ user: userInstance._id, request_type: "login", request_data: username, status_code: "200", timestamp: new Date(), response_data: "success"});
 });
 
-// Signup page
+ 
 app.get("/signup", alreadyLoggedIn, async (req, res) => {
     const user = await getUserInstance(req);
     if (user) {
@@ -321,19 +326,19 @@ app.post("/signup", alreadyLoggedIn, async (req, res) => {
     LogsModel.create({ user: userInstance._id, request_type: "signup", request_data: username, status_code: "200", timestamp: new Date(), response_data: "success"});
 });
 
-// Logout logic
+ 
 app.get("/logout", ensureAuthenticated, async (req, res) => {
     req.session.destroy();
     res.status(303).redirect("/");
     LogsModel.create({ user: null, request_type: "logout", request_data: null, status_code: "200", timestamp: new Date(), response_data: "success"});
 });
 
-// Listening
+ 
 app.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on ${port}`);
 });
 
-// Utils
+ 
 async function getUserInstance(req) {
     if (req.session.userId) {
         return await UserModel.findById(req.session.userId).exec();
@@ -342,7 +347,7 @@ async function getUserInstance(req) {
     return null;
 }
 
-// Middleware
+ 
 async function ensureAuthenticated(req, res, next) {
     if (req.session.userId) {
         return next();

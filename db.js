@@ -58,6 +58,7 @@ const Item = new Schema({
 const ItemModel = mongoose.model('Item', Item);
 
 const QuizQuestion = new Schema({
+    movie: String,
     question: String,
     answers: [String],
     correctAnswer: Number
@@ -65,7 +66,7 @@ const QuizQuestion = new Schema({
 
 const QuizQuestionModel = mongoose.model('QuizQuestion', QuizQuestion);
 
-const questions = [
+const parasiteQuestions = [
     {
         question: "Каким образом семья Ким проникает в дом семьи Пак?",
         answers: ["Они грабят дом семьи Пак, пока те находятся в отпуске", "Они шантажируют главу семьи Пак, чтобы он дал им работу", " Они устраиваются на работу к богатой семье, используя фальшивые рекомендации", "Они выдают себя за родственников семьи Пак"],
@@ -98,8 +99,27 @@ const questions = [
     },
 ];
 
-questions.forEach(async (questionData) => {
-    const newQuestion = new QuizQuestionModel(questionData);
+const titanicQuestions = [
+    {
+        question: "Какой актер играл главную роль в фильме Титаник?",
+        answers: ["Леонардо ДиКаприо", "Том Хэнкс", "Брэд Питт", "Джонни Депп"],
+        correctAnswer: 0
+    },
+    // Добавьте больше вопросов по теме "Титаник" здесь
+];
+
+parasiteQuestions.forEach(async (questionData) => {
+    const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Parasite' });
+    try {
+        await newQuestion.save();
+        console.log("Вопрос успешно добавлен в базу данных");
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+titanicQuestions.forEach(async (questionData) => {
+    const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Titanic' });
     try {
         await newQuestion.save();
         console.log("Вопрос успешно добавлен в базу данных");
@@ -113,5 +133,7 @@ module.exports = {
     UserModel,
     LogsModel,
     ItemModel,
+    parasiteQuestions,
+    titanicQuestions,
     QuizQuestionModel
 };
