@@ -6,10 +6,8 @@ const path = require('path');
 const app = express();
 const port = 3000;
 const axios = require('axios');
-const { UserModel, LogsModel, ItemModel, QuizQuestionModel } = require('./db');
+const { UserModel, LogsModel, ItemModel, QuizQuestionModel, avatarQuestions, barbieQuestions, haticoQuestions, oneplusoneQuestioins } = require('./db');
 const { getMovieNews, getActors } = require('./api');
- 
- 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(session({ secret: 'Adilet-se2203', resave: false, saveUninitialized: true, cookie: { secure: !true, maxAge: 3600000 }}));
@@ -54,6 +52,28 @@ app.get('/quizTitanic', async (req, res) => {
     const titanicQuestions = await QuizQuestionModel.find({ movie: 'Titanic' });
     res.render('pages/quizTitanic', { questions: titanicQuestions });
 });
+
+app.get('/quizAvatar', async (req, res) => {
+    const avatarQuestions = await QuizQuestionModel.find({ movie: 'Avatar' });
+    res.render('pages/quizAvatar', { questions: avatarQuestions });
+});
+
+
+app.get('/quizBarbie', async (req, res) => {
+    const barbieQuestions = await QuizQuestionModel.find({ movie: 'Barbie' });
+    res.render('pages/quizBarbie', { questions: barbieQuestions });
+});
+
+app.get('/quizHatico', async (req, res) => {
+    const haticoQuestions = await QuizQuestionModel.find({ movie: 'Hatico' });
+    res.render('pages/quizHatico', { questions: haticoQuestions });
+});
+
+app.get('/quizOneplusone', async (req, res) => {
+    const oneplusoneQuestioins = await QuizQuestionModel.find({ movie: 'Oneplusone' });
+    res.render('pages/quizOneplusone', { questions: oneplusoneQuestioins });
+});
+
 
 app.get('/', async (req, res) => {
     try {
