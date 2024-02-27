@@ -8,6 +8,7 @@ const port = 3000;
 const axios = require('axios');
 const { UserModel, LogsModel, ItemModel, QuizQuestionModel, avatarQuestions, barbieQuestions, haticoQuestions, oneplusoneQuestioins } = require('./db');
 const { getMovieNews, getActors } = require('./api');
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(session({ secret: 'Adilet-se2203', resave: false, saveUninitialized: true, cookie: { secure: !true, maxAge: 3600000 }}));
@@ -17,24 +18,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 app.set('trust proxy', true);
-async function getRandomTMDBCharacters() {
-    const response = await axios.get('https://api.themoviedb.org/3/person/popular', {
-        params: {
-            api_key: 'ff90285baa8888e9e1f26f80679d4de9'
-        }
-    });
-    const characters = response.data.results;
-    const randomCharacters = [];
+async function searchMoviesAndShows(query) {
+    try {
+        // Запрос к TMDB API для поиска фильмов и телешоу
+        const response = await axios.get('https://api.themoviedb.org/3/search/multi', {
+            params: {
+                api_key: 'ff90285baa8888e9e1f26f80679d4de9',
+                language: 'en-US',
+                query: query,
+                page: 1
+            }
+        });
 
-    while (randomCharacters.length < 3) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        const character = characters[randomIndex];
-        if (!randomCharacters.some(char => char.name === character.name)) {
-            randomCharacters.push(character);
-        }
+        const moviesAndShows = response.data.results.map(item => ({
+            id: item.id,
+            title: item.title || item.name,
+            poster_path: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null
+        }));
+
+        return moviesAndShows;
+    } catch (error) {
+        console.error('Error fetching movies and shows:', error);
+        return null;
     }
-    return randomCharacters;
-}
+}  
  
 app.get('/results/:score', (req, res) => {
     const score = req.params.score;
@@ -79,9 +86,9 @@ app.get('/', async (req, res) => {
     try {
         const user = await getUserInstance(req);
         const items = await ItemModel.find().exec();
-        const tmdbCharacters = await getRandomTMDBCharacters(); // Получение случайных персонажей
+        const moviesAndShows = await searchMoviesAndShows('');
 
-        res.render('pages/index.ejs', { activePage: "home", user: user ? user : null, error: null, items: items, tmdbCharacters: tmdbCharacters }); // Передача случайных персонажей в шаблон
+        res.render('pages/index.ejs', { activePage: "home", user: user ? user : null, error: null, items: items, moviesAndShows: moviesAndShows }); // Передача случайных персонажей в шаблон
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
@@ -90,16 +97,20 @@ app.get('/', async (req, res) => {
  
 app.get('/tmdb', async (req, res) => {
     try {
-        const actors = await getActors();
-        if (actors) {
-            const tmdbCharacters = await getRandomTMDBCharacters(); // Получить случайных персонажей
+        const query = req.query.q; // Получить строку запроса из URL
+        if (!query) {
             const user = await getUserInstance(req); // Получить пользователя
-            res.render('pages/tmdb.ejs', { tmdbCharacters: tmdbCharacters, actors: actors, user: user }); // Передать переменные в шаблон
+            return res.render('pages/tmdb.ejs', { error: 'Search query is empty', moviesAndShows: [], user: user });
+        }
+        const moviesAndShows = await searchMoviesAndShows(query);
+        if (moviesAndShows) {
+            const user = await getUserInstance(req); // Получить пользователя
+            res.render('pages/tmdb.ejs', { moviesAndShows: moviesAndShows, user: user }); // Передать переменные в шаблон
         } else {
-            res.status(500).send('Failed to fetch actors');
+            res.status(500).send('Failed to fetch movies and shows');
         }
     } catch (error) {
-        console.error('Error fetching actors:', error);
+        console.error('Error fetching movies and shows:', error);
         res.status(500).send('Internal server error');
     }
 });
