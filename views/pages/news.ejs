@@ -72,18 +72,18 @@
                 <a class="text-white" href="/signup">Sign Up</a>
             <% } else { %>
                 <% if (user.is_admin) { %>
-                    <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
-                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin">Users</a>
-                            <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
+                            <a class="text-white nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
+                            <a class="text-white nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin">Users</a>
+                            <a class="text-white nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a>
                 <% } %>
-                <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>
-                <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/logout">Logout</a>
+                <a class="text-white nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>
+                <a class="text-white nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href="/logout">Logout</a>
             <% } %>
         </div>
     </nav>
 
     <div class="container">
-        <div class="fs-1 fw-semibold my-3">The Weather News</div>
+        <div class="text-white text-9xl fw-semibold my-3 ml-3">Breaking Movies News</div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <% data.forEach(function(article) { %>

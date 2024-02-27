@@ -15,7 +15,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-300">
+<body class="bg-gray-600">
     <nav class="flex items-center justify-between p-6">
         <div class="container mx-auto">
             <div class="flex justify-between items-center py-4">
@@ -121,10 +121,10 @@
     </div>
     </div>
 </div>
-<!-- Add Item Modal End -->
+ 
 
 
-<!-- Edit Item Modal Start -->
+ 
 <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -134,9 +134,9 @@
             </div>
             <form id="editItemForm" action="/admin/updateItem" method="POST">
                 <div class="bg-sky-500 modal-body">
-                    <!-- Hidden ID -->
+                     
                     <input hidden id="editItemId" name="itemId">
-                    <!-- Edit Names -->
+                    
                     <div class="form-group">
                         <label for="editNameEn">Name (EN)</label>
                         <input type="text" class="form-control" id="editNameEn" name="names[en]" required>
