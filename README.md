@@ -23,12 +23,3 @@ Search: Use the search feature to find movies and TV shows by title.
 News Updates: Access the latest news articles related to movies.
 Admin Panel: Admins can manage the application through the admin panel.
 Quizzes: Engage with quizzes related to movies for entertainment and knowledge.
-## Contributors
-GetLivreru
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-Special thanks to TMDB and News API for providing access to their APIs, enabling the functionality of this application.
-
-Feel free to contribute to the project by submitting bug reports, feature requests, or pull requests. Happy movie browsing!
