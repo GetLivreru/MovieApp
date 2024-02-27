@@ -13,16 +13,16 @@ Movie App is a web application built to provide users with access to a variety o
 - APIs: TMDB API, News API
 - Setup Instructions
 ## Clone the repository: git clone https://github.com/your-username/movie-app.git
-Navigate to the project directory: cd movie-app
-Install dependencies: npm install
-Configure environment variables for API keys and other settings.
-Run the application: npm start
+- Navigate to the project directory: cd movie-app
+- Install dependencies: npm install
+- Configure environment variables for API keys and other settings.
+- Run the application: npm start
 ## Usage
-Authentication: Users can sign up or log in to access the application.
-Search: Use the search feature to find movies and TV shows by title.
-News Updates: Access the latest news articles related to movies.
-Admin Panel: Admins can manage the application through the admin panel.
-Quizzes: Engage with quizzes related to movies for entertainment and knowledge.
+- Authentication: Users can sign up or log in to access the application.
+- Search: Use the search feature to find movies and TV shows by title.
+- News Updates: Access the latest news articles related to movies.
+- Admin Panel: Admins can manage the application through the admin panel.
+- Quizzes: Engage with quizzes related to movies for entertainment and knowledge.
 ## Installation and Setup
 
 To get the project up and running on your local machine, follow these steps:
