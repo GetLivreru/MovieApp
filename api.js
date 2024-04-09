@@ -54,5 +54,5 @@ async function getActors() {
 
 module.exports = {
     getMovieNews,
-    getActors // Добавляем экспорт функции getActors
+    getActors  
 };
