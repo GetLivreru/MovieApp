@@ -65,7 +65,7 @@ const QuizQuestion = new Schema({
 });
 
 const QuizQuestionModel = mongoose.model('QuizQuestion', QuizQuestion);
-
+/*
 const parasiteQuestions = [
     {
         question: "Каким образом семья Ким проникает в дом семьи Пак?",
@@ -296,16 +296,17 @@ oneplusoneQuestioins.forEach(async (questionData) => {
 });
 
 
-
+*/
 module.exports = {
     UserModel,
     LogsModel,
     ItemModel,
-    parasiteQuestions,
-    titanicQuestions,
     QuizQuestionModel,
+    /*parasiteQuestions,
+    titanicQuestions,
     avatarQuestions,
     barbieQuestions,
     haticoQuestions,
     oneplusoneQuestioins
+    */
 };
