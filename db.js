@@ -66,7 +66,7 @@ const QuizQuestion = new Schema({
 
 const QuizQuestionModel = mongoose.model('QuizQuestion', QuizQuestion);
 
-const parasiteQuestions = [
+/*const parasiteQuestions = [
     {
         question: "What is the purpose of the 'int main()' function in a C++ program?",
         answers: [
@@ -175,7 +175,7 @@ const avatarQuestions = [
     }
 ];
 
-/*const barbieQuestions = [
+const barbieQuestions = [
     {
         question: "Какой профессии хочет научиться главная героиня игрушек Барби?",
         answers: ["Врач", "Преподаватель", "Модель", "Астронавт"],
@@ -257,7 +257,7 @@ const  oneplusoneQuestioins = [
         correctAnswer: 1
     }
 ];
-*/
+
 
 parasiteQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Parasite' });
@@ -279,7 +279,7 @@ titanicQuestions.forEach(async (questionData) => {
     }
 });
 
-/*barbieQuestions.forEach(async (questionData) => {
+barbieQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Barbie' });
     try {
         await newQuestion.save();
@@ -288,7 +288,7 @@ titanicQuestions.forEach(async (questionData) => {
         console.error(err);
     }
 });
-*/
+
 avatarQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Avatar' });
     try {
@@ -298,7 +298,7 @@ avatarQuestions.forEach(async (questionData) => {
         console.error(err);
     }
 });
-
+*/
 /*haticoQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Hatico' });
     try {
