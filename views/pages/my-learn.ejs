@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>My Learn</title>
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="flex items-center justify-between p-6">
+        <div class="flex items-center space-x-4">
+            <a class="text-white" href="/">Home</a>
+            <a class="text-white" href="/news">News</a>
+            <a class="text-white" href="/tmdb">TMDB</a>
+            <a class="text-white" href="/my-learn">My Learn</a>
+        </div>
+    </nav>
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl mb-4">My Learn</h1>
+        <p class="mb-4">Based on your quiz results, here is what you should learn and where to learn it:</p>
+        <div class="bg-gray-800 p-4 rounded">
+            <%= feedback %>
+        </div>
+    </div>
+</body>
+</html>

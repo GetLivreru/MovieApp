@@ -65,92 +65,117 @@ const QuizQuestion = new Schema({
 });
 
 const QuizQuestionModel = mongoose.model('QuizQuestion', QuizQuestion);
-/*
+
 const parasiteQuestions = [
     {
-        question: "Каким образом семья Ким проникает в дом семьи Пак?",
-        answers: ["Они грабят дом семьи Пак, пока те находятся в отпуске", "Они шантажируют главу семьи Пак, чтобы он дал им работу", " Они устраиваются на работу к богатой семье, используя фальшивые рекомендации", "Они выдают себя за родственников семьи Пак"],
-        correctAnswer: 2
-    },
-    {
-        question: "Что происходит в кульминационный момент фильма?",
-        answers: ["Семья Пак узнает, что семья Ким обманывает их", " Сын семьи Ким влюбляется в дочь семьи Пак", "Семья Ким попадает в ловушку, устроенную семьей Пак", "Семья Ким решает покинуть дом семьи Пак"],
-        correctAnswer: 0
-    },
-    {
-        question: "Как заканчивается фильм?",
-        answers: ["Семья Ким и семья Пак становятся друзьями", "Семья Ким погибает", "Семья Ким бежит из страны", "Семья Ким остается жить в доме семьи Пак"],
-        correctAnswer: 2
-    },
-    {
-        question: "Какую социальную проблему поднимает фильм Паразиты ?",
-        answers: ["Проблему безработицы", "Проблему классового неравенства", "Проблему коррупции", "Проблему преступности"],
+        question: "What is the purpose of the 'int main()' function in a C++ program?",
+        answers: [
+            "It defines a loop in C++.",
+            "It is the starting point of program execution.",
+            "It imports libraries for the program.",
+            "It handles memory management."
+        ],
         correctAnswer: 1
     },
     {
-        question: "Как называется камень, который играет важную роль в фильме?",
-        answers: ["Аметист", "Изумруд", "Алмаз", "Оникс"],
+        question: "Which of the following is used to output text to the console in C++?",
+        answers: [
+            "print()",
+            "System.out.println()",
+            "cout <<",
+            "console.log()"
+        ],
+        correctAnswer: 2
+    },
+    {
+        question: "What does the 'return 0;' statement do at the end of the 'main' function?",
+        answers: [
+            "It exits the program successfully.",
+            "It initializes a variable to zero.",
+            "It creates an infinite loop.",
+            "It outputs zero to the console."
+        ],
+        correctAnswer: 0
+    },
+    {
+        question: "Which of these is used to declare a variable that cannot be modified in C++?",
+        answers: [
+            "final",
+            "let",
+            "static",
+            "const"
+        ],
         correctAnswer: 3
+    },
+    {
+        question: "What keyword is used to create a loop that iterates a fixed number of times?",
+        answers: [
+            "if",
+            "while",
+            "for",
+            "switch"
+        ],
+        correctAnswer: 2
     },
 ];
 
 const titanicQuestions = [
     {
-        question: "Какой актер играл главную роль в фильме Титаник?",
-        answers: ["Леонардо ДиКаприо", "Том Хэнкс", "Брэд Питт", "Джонни Депп"],
-        correctAnswer: 0
-    },
-    {
-        question: "Какой актер играл главную роль в фильме Титаник?",
-        answers: ["Леонардо ДиКаприо", "Том Хэнкс", "Брэд Питт", "Джонни Депп"],
-        correctAnswer: 0
-    },
-    {
-        question: "Кто является режиссером фильма 'Титаник'?",
-        answers: ["Стивен Спилберг", "Джеймс Кэмерон", "Кристофер Нолан", "Мартин Скорсезе"],
+        question: "What is the English translation for the Russian word 'корабль'?",
+        answers: ["Train", "Ship", "Car", "Plane"],
         correctAnswer: 1
     },
     {
-        question: "Какой корабль был основой для съемок в фильме 'Титаник'?",
-        answers: ["Олимпик", "Квин Мэри", "Титаник", "Лузитания"],
+        question: "In English, how would you say 'главная роль' in the context of movies?",
+        answers: ["Director", "Main character", "Supporting actor", "Villain"],
+        correctAnswer: 1
+    },
+    {
+        question: "What is the English equivalent of the Russian word 'режиссер'?",
+        answers: ["Actor", "Producer", "Director", "Cameraman"],
         correctAnswer: 2
     },
     {
-        question: "Какой год выхода фильма 'Титаник'?",
-        answers: ["1995", "1996", "1997", "1998"],
-        correctAnswer: 2
+        question: "How would you say 'выход фильма' in English?",
+        answers: ["Film release", "Movie ticket", "Casting", "Editing"],
+        correctAnswer: 0
+    },
+    {
+        question: "Which English word translates to 'пассажир'?",
+        answers: ["Driver", "Passenger", "Pilot", "Captain"],
+        correctAnswer: 1
     },
 ];
 
 const avatarQuestions = [
     {
-        question: "Какое название у фильма режиссера Джеймса Кэмерона о приключениях на планете Пандора?",
-        answers: ["Аватар", "Титаник", "Трансформеры", "Гарри Поттер"],
+        question: "What technology was extensively used to create the visual effects in the movie 'Avatar'?",
+        answers: ["Virtual Reality", "Augmented Reality", "Computer-Generated Imagery (CGI)", "3D Printing"],
+        correctAnswer: 2
+    },
+    {
+        question: "In 'Avatar', what device allowed actors to capture their facial expressions for the Na'vi characters?",
+        answers: ["Motion Capture", "Green Screen", "3D Modeling", "Drone Cameras"],
         correctAnswer: 0
     },
     {
-        question: "Какие существа населяют планету Пандору в фильме 'Аватар'?",
-        answers: ["Люди", "Эльфы", "Нави", "Орки"],
-        correctAnswer: 2
+        question: "Which software technology is commonly used in film production to render detailed 3D environments like Pandora in 'Avatar'?",
+        answers: ["Photoshop", "Blender", "Unity", "Autodesk Maya"],
+        correctAnswer: 3
     },
     {
-        question: "Как называется вещество, добываемое на планете Пандора, которое является центральным конфликтом в фильме 'Аватар'?",
-        answers: ["Аватариум", "Уран", "Унобтаниум", "Пандорий"],
-        correctAnswer: 2
+        question: "What term describes the artificial environment created digitally, such as the planet Pandora?",
+        answers: ["Digital Twin", "Virtual World", "Internet of Things", "Blockchain"],
+        correctAnswer: 1
     },
     {
-        question: "Какое сообщество людей отправляется на планету Пандора в поисках ресурсов?",
-        answers: ["ПСО", "ООН", "Корпорация 'РДК'", "NASA"],
-        correctAnswer: 2
-    },
-    {
-        question: "Как звали главного героя фильма 'Аватар'?",
-        answers: ["Джейк Салли", "Джек Доусон", "Джеймс Кэмерон", "Джеймс Фрэнклин"],
+        question: "What is the primary purpose of CGI in modern films?",
+        answers: ["To add special effects and create realistic environments", "To edit sound effects", "To improve script quality", "To control lighting on set"],
         correctAnswer: 0
     }
 ];
 
-const barbieQuestions = [
+/*const barbieQuestions = [
     {
         question: "Какой профессии хочет научиться главная героиня игрушек Барби?",
         answers: ["Врач", "Преподаватель", "Модель", "Астронавт"],
@@ -232,7 +257,7 @@ const  oneplusoneQuestioins = [
         correctAnswer: 1
     }
 ];
-
+*/
 
 parasiteQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Parasite' });
@@ -254,7 +279,7 @@ titanicQuestions.forEach(async (questionData) => {
     }
 });
 
-barbieQuestions.forEach(async (questionData) => {
+/*barbieQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Barbie' });
     try {
         await newQuestion.save();
@@ -263,7 +288,7 @@ barbieQuestions.forEach(async (questionData) => {
         console.error(err);
     }
 });
-
+*/
 avatarQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Avatar' });
     try {
@@ -274,7 +299,7 @@ avatarQuestions.forEach(async (questionData) => {
     }
 });
 
- haticoQuestions.forEach(async (questionData) => {
+/*haticoQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Hatico' });
     try {
         await newQuestion.save();
@@ -294,9 +319,8 @@ oneplusoneQuestioins.forEach(async (questionData) => {
         console.error(err);
     }
 });
-
-
 */
+
 module.exports = {
     UserModel,
     LogsModel,
