@@ -9,15 +9,15 @@ const axios = require('axios');
 const { UserModel, LogsModel, ItemModel, QuizQuestionModel, avatarQuestions, barbieQuestions, haticoQuestions, oneplusoneQuestioins } = require('./db');
 const { getMovieNews, getActors } = require('./api');
 const openaiController = require('./controllers/openaiController');
-const OpenAI = require('openai'); // Обратите внимание, что Configuration был удалён
+const OpenAI = require('openai'); 
 
-const app = express();  // Создаём экземпляр приложения Express
-const port = 3000;  // Определяем порт для сервера
+const app = express();  
+const port = 3000;   
 
 
-// Создание экземпляра OpenAI без Configuration
+ 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY, // Используйте переменную окружения для безопасности
+    apiKey: process.env.OPENAI_API_KEY,  
 });
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +30,7 @@ app.use(express.static('public'));
 app.set('trust proxy', true);
 async function searchMoviesAndShows(query) {
     try {
-        // Запрос к TMDB API для поиска фильмов и телешоу
+         
         const response = await axios.get('https://api.themoviedb.org/3/search/multi', {
             params: {
                 api_key: 'ff90285baa8888e9e1f26f80679d4de9',
@@ -53,35 +53,7 @@ async function searchMoviesAndShows(query) {
     }
 }  
 
-app.get('/my-learn', async (req, res) => {
-    try {
-        const quizResults = req.query.results; // Получение результатов квиза
-        if (!quizResults) {
-            return res.status(400).send('Quiz results are required');
-        }
-
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo", // или используйте другую подходящую модель
-            messages: [
-                {
-                    role: "user",
-                    content: `Based on the following quiz results, provide feedback on what to learn and where to learn it: ${quizResults}`
-                }
-            ],
-            max_tokens: 150,
-        });
-
-        if (!response.choices || response.choices.length === 0) {
-            throw new Error("No response choices from OpenAI API");
-        }
-
-        const feedback = response.choices[0].message.content.trim();
-        res.render('pages/my-learn', { feedback });
-    } catch (error) {
-        console.error('Error from OpenAI API:', error.response ? error.response.data : error.message);
-        res.status(500).send('Error generating feedback');
-    }
-});
+app.get('/my-learn', openaiController.getMyLearn);
 
 app.get('/results/:score', (req, res) => {
     const score = req.params.score;
@@ -194,7 +166,7 @@ app.post('/submitQuiz', async (req, res) => {
         }
     }
 
-    // Отправка результатов на страницу my-learn
+    // Перенаправление на страницу my-learn с передачей результатов квиза через параметр `results`
     res.redirect(`/my-learn?results=${encodeURIComponent(score)}`);
 });
 

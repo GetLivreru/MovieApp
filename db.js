@@ -65,8 +65,8 @@ const QuizQuestion = new Schema({
 });
 
 const QuizQuestionModel = mongoose.model('QuizQuestion', QuizQuestion);
-
-/*const parasiteQuestions = [
+/*
+const parasiteQuestions = [
     {
         question: "What is the purpose of the 'int main()' function in a C++ program?",
         answers: [
@@ -279,6 +279,15 @@ titanicQuestions.forEach(async (questionData) => {
     }
 });
 
+avatarQuestions.forEach(async (questionData) => {
+    const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Avatar' });
+    try {
+        await newQuestion.save();
+        console.log("Вопрос успешно добавлен в базу данных");
+    } catch (err) {
+        console.error(err);
+    }
+});
 barbieQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Barbie' });
     try {
@@ -289,17 +298,7 @@ barbieQuestions.forEach(async (questionData) => {
     }
 });
 
-avatarQuestions.forEach(async (questionData) => {
-    const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Avatar' });
-    try {
-        await newQuestion.save();
-        console.log("Вопрос успешно добавлен в базу данных");
-    } catch (err) {
-        console.error(err);
-    }
-});
-*/
-/*haticoQuestions.forEach(async (questionData) => {
+haticoQuestions.forEach(async (questionData) => {
     const newQuestion = new QuizQuestionModel({ ...questionData, movie: 'Hatico' });
     try {
         await newQuestion.save();

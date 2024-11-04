@@ -19,8 +19,12 @@
         <h1 class="text-3xl mb-4">My Learn</h1>
         <p class="mb-4">Based on your quiz results, here is what you should learn and where to learn it:</p>
         <div class="bg-gray-800 p-4 rounded">
-            <%= feedback %>
-        </div>
+            <% if (feedback) { %>
+                <%= feedback %>
+            <% } else { %>
+                <p>No specific feedback available. Please provide more detailed quiz results.</p>
+            <% } %>
+        </div>        
     </div>
 </body>
 </html>
