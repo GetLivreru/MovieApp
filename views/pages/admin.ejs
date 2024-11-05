@@ -64,7 +64,7 @@
                       <a href="/signup" class="btn btn-secondary ml-2">Sign up</a>
                     <% } else { %>
                       <% if (user.is_admin) { %>
-                        <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Movies</a>
+                        <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Courses</a>
                         <a class="nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/">Home</a> 
                       <% } %>
                       <a class="nav-link <%= activePage === 'tmdb' ? 'active text-primary fw-semibold' : '' %>" href=""><%= user.username %></a>

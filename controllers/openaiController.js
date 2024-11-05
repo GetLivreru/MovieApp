@@ -15,7 +15,23 @@ exports.getMyLearn = async (req, res) => {
             messages: [
                 {
                     role: "user",
-                    content: `Based on the quiz score of ${quizResults}, provide feedback on what topics to focus on to improve.`
+                    content: `Based on the quiz score of ${quizResults}, provide a structured learning plan divided by weeks for C++. Include the hours of study and detailed breakdowns for each topic. Format the response like this:
+
+Week 1: Basics of C++
+Study Hours: 6-8 hours
+- Installation and setup (1 hour)
+  - Install an IDE like Visual Studio or Code::Blocks, and set up the compiler.
+- Basic syntax and program structure (2 hours)
+  - Understand the structure of a C++ program. Learn about the main() function, comments, and basic data types (int, float, char, bool).
+- Input and output (1 hour)
+  - Use cin and cout for input and output.
+- Variables and operations (2 hours)
+  - Study data types, variable declaration, and basic arithmetic operations.
+  - Practice creating simple programs with calculations.
+- Homework and practice (1-2 hours)
+  - Implement programs using arithmetic and work with input/output.
+
+... (continue with the structure for additional weeks)`
                 }
             ],
             max_tokens: 2000,
