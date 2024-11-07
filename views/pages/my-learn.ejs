@@ -19,12 +19,20 @@
         <h1 class="text-3xl mb-4">My Learn</h1>
         <p class="mb-4">Based on your quiz results, here is what you should learn and where to learn it:</p>
         <div class="bg-gray-800 p-4 rounded">
-            <% if (feedback) { %>
-                <%= feedback %>
+            <% if (learningPlan && learningPlan.length > 0) { %>
+                <% learningPlan.forEach((step, index) => { %>
+                    <div class="mb-4">
+                        <h2 class="text-xl font-semibold">Step <%= index + 1 %>: <%= step.topic %></h2>
+                        <p><strong>Description:</strong> <%= step.description %></p>
+                        <p><strong>Recommended Time:</strong> <%= step.recommendedTime %></p>
+                        <p><strong>Advice:</strong> <%= step.advice %></p>
+                        <hr class="my-4 border-gray-600">
+                    </div>
+                <% }) %>
             <% } else { %>
-                <p>No specific feedback available. Please provide more detailed quiz results.</p>
+                <p>No learning plan available. Please take the quiz to get personalized recommendations.</p>
             <% } %>
-        </div>        
+        </div>
     </div>
 </body>
 </html>
