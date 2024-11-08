@@ -74,7 +74,7 @@ module.exports = {
     ItemModel,
     QuizQuestionModel,
     UserLearningPlanModel,
-    cppQuestions,
+    /*cppQuestions,
     flQuestions,
-    ictQuestions
+    ictQuestions*/
 };
