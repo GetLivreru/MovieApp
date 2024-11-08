@@ -223,36 +223,20 @@ async function searchMoviesAndShows(query) {
         return null;
     }
 }
-app.get('/quiz', async (req, res) => {
+app.get('/quizCpp', async (req, res) => {
     const parasiteQuestions = await QuizQuestionModel.find({ movie: 'Parasite' });
     res.render('pages/quiz', { questions: parasiteQuestions });
 });
 
 
-app.get('/quizTitanic', async (req, res) => {
+app.get('/quizFL', async (req, res) => {
     const titanicQuestions = await QuizQuestionModel.find({ movie: 'Titanic' });
     res.render('pages/quizTitanic', { questions: titanicQuestions });
 });
 
-app.get('/quizAvatar', async (req, res) => {
+app.get('/quizICT', async (req, res) => {
     const avatarQuestions = await QuizQuestionModel.find({ movie: 'Avatar' });
     res.render('pages/quizAvatar', { questions: avatarQuestions });
-});
-
-
-app.get('/quizBarbie', async (req, res) => {
-    const barbieQuestions = await QuizQuestionModel.find({ movie: 'Barbie' });
-    res.render('pages/quizBarbie', { questions: barbieQuestions });
-});
-
-app.get('/quizHatico', async (req, res) => {
-    const haticoQuestions = await QuizQuestionModel.find({ movie: 'Hatico' });
-    res.render('pages/quizHatico', { questions: haticoQuestions });
-});
-
-app.get('/quizOneplusone', async (req, res) => {
-    const oneplusoneQuestioins = await QuizQuestionModel.find({ movie: 'Oneplusone' });
-    res.render('pages/quizOneplusone', { questions: oneplusoneQuestioins });
 });
 
 
