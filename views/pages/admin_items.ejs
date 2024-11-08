@@ -55,198 +55,68 @@
             Add
         </button>
     </div>
- <div class="modal fade" id="addItemModal" role="dialog" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="bg-secondary modal-header">
-            <h5 class="modal-title" id="addItemModalLabel">Description about Courses</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="/admin/addItem" method="POST">
-        <div class="bg-cyan-600 modal-body">
-            <div class="form-group">
-            <label for="nameEn">Name (EN)</label>
-            <input type="text" class="form-control" id="nameEn" name="names[en]" required>
-            </div>
-            <div class="form-group">
-            <label for="nameRu">Name (RU)</label>
-            <input type="text" class="form-control" id="nameRu" name="names[ru]" required>
-            </div>
-            <div class="form-group">
-            <label for="nameKz">Name (KZ)</label>
-            <input type="text" class="form-control" id="nameKz" name="names[kz]" required>
-            </div>
-            <div class="form-group">
-                <label for="descriptionEn">Description (EN)</label>
-                <textarea class="form-control" id="descriptionEn" name="descriptions[en]" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="descriptionRu">Description (RU)</label>
-                <textarea class="form-control" id="descriptionRu" name="descriptions[ru]" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="descriptionKz">Description (KZ)</label>
-                <textarea class="form-control" id="descriptionKz" name="descriptions[kz]" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="picture1">Picture URL</label>
-                <input type="text" class="form-control" id="picture1" name="pictures[]" required>
-            </div>
-            <div class="form-group">
-                <label for="creationDate">Creation Date</label>
-                <input type="date" class="form-control" id="creationDate" name="creationDate" required>
-            </div>
-            <div class="form-group">
-                <label for="genre">Genre</label>
-                <input type="text" class="form-control" id="genre" name="genre" required>
-            </div>
-            <div class="form-group">
-                <label for="director">Director</label>
-                <input type="text" class="form-control" id="director" name="director" required>
-            </div>
-            <div class="form-group">
-                <label for="budget">Budget</label>
-                <input type="number" class="form-control" id="budget" name="budget" required>
-            </div>
-            <div class="form-group">
-                <label for="quizLink">Quiz Link</label>
-                <input type="text" id="quizLink" name="quizLink" class="form-control" required>
-            </div>
-        </div>
-        <div class="bg-gray-300 modal-footer">
-            <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-dismiss="modal">Close</button>
-            <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Item</button>
-        </div>
-        </form>
-    </div>
-    </div>
-</div>
- 
-
-
- 
-<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="bg-secondary modal-header">
-                <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="editItemForm" action="/admin/updateItem" method="POST">
-                <div class="bg-sky-500 modal-body">
-                     
-                    <input hidden id="editItemId" name="itemId">
-                    
-                    <div class="form-group">
-                        <label for="editNameEn">Name (EN)</label>
-                        <input type="text" class="form-control" id="editNameEn" name="names[en]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editNameRu">Name (RU)</label>
-                        <input type="text" class="form-control" id="editNameRu" name="names[ru]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editNameKz">Name (KZ)</label>
-                        <input type="text" class="form-control" id="editNameKz" name="names[kz]" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editDescriptionEn">Description (EN)</label>
-                        <textarea class="form-control" id="editDescriptionEn" name="descriptions[en]" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDescriptionRu">Description (RU)</label>
-                        <textarea class="form-control" id="editDescriptionRu" name="descriptions[ru]" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDescriptionKz">Description (KZ)</label>
-                        <textarea class="form-control" id="editDescriptionKz" name="descriptions[kz]" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editPicture1">Picture URL 1</label>
-                        <input type="text" class="form-control" id="editPicture1" name="pictures[]" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="editCreationDate">Creation Date</label>
-                        <input type="date" class="form-control" id="editCreationDate" name="creationDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editGenre">Genre</label>
-                        <input type="text" class="form-control" id="editGenre" name="genre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDirector">Director</label>
-                        <input type="text" class="form-control" id="editDirector" name="director" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editBudget">Budget</label>
-                        <input type="number" class="form-control" id="editBudget" name="budget" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="quizLink">Quiz Link</label>
-                        <input type="text" id="quizLink" name="quizLink" class="form-control" required>
-                    </div>
-                     
+    <div class="modal fade" id="addItemModal" role="dialog" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="bg-secondary modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">Description about Courses</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                
-                <div class="bg-gray-600 modal-footer">
-                    <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save Changes</button>
-                </div>
-            </form>
+                <form action="/admin/addItem" method="POST">
+                    <div class="bg-cyan-600 modal-body">
+                        <div class="form-group">
+                            <label for="nameEn">Name (EN)</label>
+                            <input type="text" class="form-control" id="nameEn" name="names[en]" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descriptionEn">Description (EN)</label>
+                            <textarea class="form-control" id="descriptionEn" name="descriptions[en]" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="picture1">Picture URL</label>
+                            <input type="text" class="form-control" id="picture1" name="pictures[]" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quizLink">Quiz Link</label>
+                            <input type="text" id="quizLink" name="quizLink" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="bg-gray-300 modal-footer">
+                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" data-dismiss="modal">Close</button>
+                        <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Item</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
- 
+
     <div class="container mt-5">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th scope="col">Name (EN)</th>
-                        <th scope="col">Name (RU)</th>
-                        <th scope="col">Name (KZ)</th>
-                        <th scope="col">Description (EN)</th>
-                        <th scope="col">Description (RU)</th>
-                        <th scope="col">Description (KZ)</th>
-                        <th scope="col">Image URLs</th>
-                        <th scope="col">Actions</th>
-                        <th scope="col">Creation Date</th>
-                        <th scope="col">Genre</th>
-                        <th scope="col">Director</th>
-                        <th scope="col">Budget</th>
-                    </tr>
+                <tr>
+                    <th scope="col">Name (EN)</th>
+                    <th scope="col">Description (EN)</th>
+                    <th scope="col">Picture URL</th>
+                    <th scope="col">Quiz Link</th>
+                    <th scope="col">Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <% items.forEach(function(item) { %>
-                        <tr>
-                            <td><%= item.names.en %></td>
-                            <td><%= item.names.ru %></td>
-                            <td><%= item.names.kz %></td>
-                            <td><%= item.descriptions.en %></td>
-                            <td><%= item.descriptions.ru %></td>
-                            <td><%= item.descriptions.kz %></td>
-                            <td><%= item.creationDate %></td>
-                            <td><%= item.genre %></td>
-                            <td><%= item.director %></td>
-                            <td><%= item.budget %></td>
-                            <td>
-                                <% item.pictures.forEach(function(picture, index) { %>
-                                    <div><a href="<%= picture %>" target="_blank">Link <%= index + 1 %></a></div>
-                                <% }); %>
-                            </td>
-                            <td>
-                                <button class="bg-gradient-to-r from-yellow-500 to-rose-500 hover:from-green-900 hover:to-blue-900 py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" onclick="editItem('<%= item._id %>')">Edit</button>
-                                <form action="/admin/item/<%= item._id %>/delete" method="GET" class="d-inline-block">
-                                    <button class="bg-gradient-to-r from-green-500 to-pink-500 hover:from-red-900 hover:to-red-900 py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                        Delete
-                                      </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <% }); %>
+                <% items.forEach(function(item) { %>
+                    <tr>
+                        <td><%= item.names.en %></td>
+                        <td><%= item.descriptions.en %></td>
+                        <td><a href="<%= item.pictures[0] %>" target="_blank">Picture</a></td>
+                        <td><a href="<%= item.quizLink %>" target="_blank">Quiz</a></td>
+                        <td>
+                            <button class="bg-gradient-to-r from-yellow-500 to-rose-500 py-2 px-4 rounded shadow-lg text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold" onclick="editItem('<%= item._id %>')">Edit</button>
+                            <form action="/admin/item/<%= item._id %>/delete" method="GET" class="d-inline-block">
+                                <button class="bg-gradient-to-r from-green-500 to-pink-500 py-2 px-4 rounded shadow-lg text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
                 </tbody>
             </table>
         </div>
