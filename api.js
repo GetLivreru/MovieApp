@@ -5,7 +5,7 @@ async function getMovieNews() {
     let response, responseData = null;
 
     try {
-        response = await axios.get(`https://newsapi.org/v2/everything?q=movies&apiKey=${NEWSAPI_KEY}&pageSize=10&page=1`);
+        response = await axios.get(`https://newsapi.org/v2/everything?q=programming&apiKey=${NEWSAPI_KEY}&pageSize=10&page=1`);
         responseData = response?.data?.articles;
     } catch {
         return null;

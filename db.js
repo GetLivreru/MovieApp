@@ -30,19 +30,11 @@ const LogsModel = mongoose.model('Logs', LogsSchema);
 const ItemSchema = new Schema({
     names: {
         en: { type: String, required: true },
-        ru: { type: String, required: true },
-        kz: { type: String, required: true },
     },
     descriptions: {
         en: { type: String, required: true },
-        ru: { type: String, required: true },
-        kz: { type: String, required: true },
     },
     pictures: [{ type: String, required: true }],
-    creationDate: { type: Date, required: true },
-    genre: { type: String, required: true },
-    director: { type: String, required: true },
-    budget: { type: Number, required: true },
     timestamps: {
         created_at: { type: Date, required: true, default: Date.now },
         updated_at: { type: Date, required: true, default: Date.now },
