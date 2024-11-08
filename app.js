@@ -6,7 +6,11 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 const axios = require('axios');
-const { UserModel, LogsModel, ItemModel, QuizQuestionModel, avatarQuestions, barbieQuestions, haticoQuestions, oneplusoneQuestioins } = require('./db');
+const { UserModel, LogsModel, ItemModel, QuizQuestionModel, avatarQuestions, barbieQuestions, haticoQuestions, oneplusoneQuestioins,
+    ictQuestions,
+    flQuestions,
+    cppQuestions
+} = require('./db');
 const { getMovieNews, getActors } = require('./api');
 const openaiController = require('./controllers/openaiController');
 const OpenAI = require('openai');
@@ -224,19 +228,18 @@ async function searchMoviesAndShows(query) {
     }
 }
 app.get('/quizCpp', async (req, res) => {
-    const parasiteQuestions = await QuizQuestionModel.find({ movie: 'Parasite' });
-    res.render('pages/quiz', { questions: parasiteQuestions });
+    const cppQuestions = await QuizQuestionModel.find({ topic: 'Introduction to C++' });
+    res.render('pages/quiz', { questions: cppQuestions });
 });
 
-
 app.get('/quizFL', async (req, res) => {
-    const titanicQuestions = await QuizQuestionModel.find({ movie: 'Titanic' });
-    res.render('pages/quizTitanic', { questions: titanicQuestions });
+    const flQuestions = await QuizQuestionModel.find({ topic: 'Foreign Language' });
+    res.render('pages/quizFL', { questions: flQuestions });
 });
 
 app.get('/quizICT', async (req, res) => {
-    const avatarQuestions = await QuizQuestionModel.find({ movie: 'Avatar' });
-    res.render('pages/quizAvatar', { questions: avatarQuestions });
+    const ictQuestions = await QuizQuestionModel.find({ topic: 'ICT' });
+    res.render('pages/quizICT', { questions: ictQuestions });
 });
 
 

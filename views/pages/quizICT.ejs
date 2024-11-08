@@ -30,10 +30,10 @@
             <% questions.forEach((question, index) => { %>
                 <div class="mb-4 p-4 bg-white rounded shadow-md">
                     <p class="font-bold"><%= question.question %></p>
-                    <% question.answers.forEach((answer, aIndex) => { %>
+                    <% question.options.forEach((options, aIndex) => { %>
                         <div>
                             <input type="radio" id="q<%= index %>a<%= aIndex %>" name="q<%= index %>" value="<%= aIndex %>" class="mr-2">
-                            <label for="q<%= index %>a<%= aIndex %>"><%= answer %></label>
+                            <label for="q<%= index %>a<%= aIndex %>"><%= options %></label>
                         </div>
                     <% }); %>
                 </div>
