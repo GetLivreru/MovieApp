@@ -22,7 +22,6 @@
             <% if (!user) { %>
                 <a class="text-white" href="/login">Login</a>
                 <a class="text-white" href="/signup">Sign Up</a>
-                <a class="text-white" href="/my-learn">My Learn</a>
             <% } else { %>
                 <% if (user.is_admin) { %>
                     <a class="text-white nav-link <%= activePage === 'home' ? 'active text-primary fw-semibold' : '' %>" href="/admin/items">Courses</a>
